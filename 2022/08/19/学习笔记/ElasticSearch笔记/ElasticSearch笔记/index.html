@@ -1,0 +1,354 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="方伟FagnWei的博客">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.3.0">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="https://fagnwei.github.io">
+    <!--SEO-->
+
+<meta name="keywords" content="" />
+
+
+<meta name="description" content="ElasticSearch学习笔记一.ElasticSearch简述** Elaticsearch ，简称为es，es是一个开源的高扩展的分布式全文检索引擎，它可以近乎实时的存储、检索数据;本身..." />
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+<title>
+    
+    方伟FagnWei的博客
+</title>
+
+<link rel="alternate" href="/atom.xml" title="方伟FagnWei的博客" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
+
+    
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.7.0.css">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash.css">
+
+    
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
+    
+
+<meta name="generator" content="Hexo 6.2.0"></head>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  style="background-image:url(
+    https://hexo-theme-snippet-1251680922.cos.ap-beijing.myqcloud.com/img/banner.jpg)"
+     >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='方伟FagnWei'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+        </div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="https://fagnwei.github.io">
+                        方伟FagnWei的博客</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa "></i>
+                                首页</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/前端/"><i class="fa "></i>
+                                前端</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/后端/"><i class="fa "></i>
+                                后端</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/工具/"><i class="fa "></i>
+                                工具</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa "></i>
+                                时间轴</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="">
+            
+            NO Title!
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">
+            2022/08/19</span>
+    </span>
+    
+    
+</div>
+        
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <h2 id="ElasticSearch学习笔记"><a href="#ElasticSearch学习笔记" class="headerlink" title="ElasticSearch学习笔记"></a>ElasticSearch学习笔记</h2><h3 id="一-ElasticSearch简述"><a href="#一-ElasticSearch简述" class="headerlink" title="一.ElasticSearch简述"></a>一.ElasticSearch简述</h3><p>** Elaticsearch <strong>，简称为es，es是一个开源的</strong>高扩展<strong>的</strong>分布式全文检索引擎<strong>，它可以近乎</strong>实时的存储<strong>、</strong>检索数据;<strong>本身扩展性很好，可以扩展到上百台服务器，处理PB级别(大数据时代）的数据。es也使用java开发并使用Lucene作为其核心来实现所有索引和搜索的功能，但是它的</strong>目的<strong>是<mark>通过简单的</strong>RESTful API<strong>来隐藏Lucene的复杂性，从而让全文搜索变得简单</mark><br>据国际权威的数据库产品评测机构DB Engines的统计，在2016年1月，ElasticSearch已超过Solr等，成为</strong>排名第一的搜索引擎类应用**</p>
+<h3 id="二-安装"><a href="#二-安装" class="headerlink" title="二.安装"></a>二.安装</h3><p>1.elasticSearch的安装</p>
+<p>下载地址：<a target="_blank" rel="noopener" href="https://www.elastic.co/cn/downloads/">https://www.elastic.co/cn/downloads/</a></p>
+<p>历史版本下载：<a target="_blank" rel="noopener" href="https://www.elastic.co/cn/downloads/past-releases/">https://www.elastic.co/cn/downloads/past-releases/</a></p>
+<p>2.kibana的安装</p>
+<p>下载地址：<a target="_blank" rel="noopener" href="https://www.elastic.co/cn/downloads/">https://www.elastic.co/cn/downloads/</a></p>
+<p>历史版本下载：<a target="_blank" rel="noopener" href="https://www.elastic.co/cn/downloads/past-releases/">https://www.elastic.co/cn/downloads/past-releases/</a></p>
+<h3 id="三-核心概念"><a href="#三-核心概念" class="headerlink" title="三.核心概念"></a>三.核心概念</h3><p>1.索引（ElasticSearch）</p>
+<ul>
+<li>包多个分片</li>
+</ul>
+<p>2.字段类型（映射）</p>
+<ul>
+<li>字段类型映射（字段是整型，还是字符型…）</li>
+</ul>
+<p>3.文档<br>4.分片（Lucene索引，倒排索引）<br>![[Pasted image 20220701205838.png]]<br>![[Pasted image 20220701205853.png]]</p>
+<h3 id="四-分词器"><a href="#四-分词器" class="headerlink" title="四.分词器"></a>四.分词器</h3><p>1.分词：即把一段中文或者别的划分成一个个的关键字，我们在搜索时候会把自己的信息进行分词，会把数据库中或者索引库中的数据进行分词，然后进行一一个匹配操作，<strong>默认的中文分词是将每个字看成一个词</strong>（<mark>不使用用IK分词器的情况下</mark>），比如“我爱狂神”会被分为”我”，”爱”，”狂”，”神” ，这显然是不符合要求的，所以我们需要安装中文分词器ik来解决这个问题。<br>2.安装<br>下载地址：<a target="_blank" rel="noopener" href="https://github.com/medcl/elasticsearch-analysis-ik/releases">https://github.com/medcl/elasticsearch-analysis-ik/releases</a><br>3.重启<br>4.查看插件<br>使用cmd，进入es的bin目录下，elasticsearch-plugin list<br>![[3.png]]</p>
+<h3 id="五-Rest的操作"><a href="#五-Rest的操作" class="headerlink" title="五.Rest的操作"></a>五.Rest的操作</h3><p>1.![[Pasted image 20220704194848.png]]<br>2.创建一个索引</p>
+<ul>
+<li>put &#x2F;索引名&#x2F;文档id</li>
+</ul>
+<p>3.字符串类型</p>
+<ul>
+<li>字符串类型<ul>
+<li>text、<strong>keyword</strong><ul>
+<li>text：支持分词，全文检索,支持模糊、精确查询,不支持聚合,排序操作;text类型的最大支持的字符长度无限制,适合大字段存储；</li>
+<li>keyword：不进行分词，直接索引、支持模糊、支持精确匹配，支持聚合、排序操作。keyword类型的最大支持的长度为——32766个UTF-8类型的字符,可以通过设置ignore_above指定自持字符长度，超过给定长度后的数据将不被索引，无法通过term精确匹配检索返回结果。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>数值型<ul>
+<li>long、Integer、short、byte、double、float、<strong>half float</strong>、<strong>scaled float</strong></li>
+</ul>
+</li>
+<li>日期类型<ul>
+<li>date</li>
+</ul>
+</li>
+<li>te布尔类型<ul>
+<li>boolean</li>
+</ul>
+</li>
+<li>二进制类型<ul>
+<li>binary</li>
+</ul>
+</li>
+</ul>
+<h3 id="六-SpringBoot的集成"><a href="#六-SpringBoot的集成" class="headerlink" title="六.SpringBoot的集成"></a>六.SpringBoot的集成</h3><h5 id="一-springboot项目集成"><a href="#一-springboot项目集成" class="headerlink" title="一.springboot项目集成"></a>一.springboot项目集成</h5><p>1.创建springboot项目</p>
+<p>2.导入依赖</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;properties&gt;</span><br><span class="line">    &lt;java.version&gt;1.8&lt;/java.version&gt;</span><br><span class="line">    &lt;!-- 统一版本 --&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;elasticsearch.version&gt;7.6.1&lt;/elasticsearch.version&gt;</span><br><span class="line">&lt;/properties&gt;</span><br></pre></td></tr></table></figure>
+<p>3.导入elasticsearch</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-starter-data-elasticsearch&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<p>4.导入fastjson、lombok</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.alibaba&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;fastjson&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.2.70&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;!-- lombok需要安装插件 --&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.projectlombok&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;lombok&lt;/artifactId&gt;</span><br><span class="line">    &lt;optional&gt;true&lt;/optional&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+<p>5.创建并且配置类</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">@Configuration</span><br><span class="line">public class ElasticSearchConfig &#123;</span><br><span class="line">    // 注册 rest高级客户端 </span><br><span class="line">    @Bean</span><br><span class="line">    public RestHighLevelClient restHighLevelClient()&#123;</span><br><span class="line">        RestHighLevelClient client = new RestHighLevelClient(</span><br><span class="line">                RestClient.builder(</span><br><span class="line">                        new HttpHost(&quot;127.0.0.1&quot;,9200,&quot;http&quot;)</span><br><span class="line">                )</span><br><span class="line">        );</span><br><span class="line">        return client;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>6.创建并且配置实体类</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@Data</span><br><span class="line">@NoArgsConstructor</span><br><span class="line">@AllArgsConstructor</span><br><span class="line">public class User implements Serializable &#123;</span><br><span class="line">    private static final long serialVersionUID = -3843548915035470817L;</span><br><span class="line">    private String name;</span><br><span class="line">    private Integer age;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h5 id="二-索引的创建与解释"><a href="#二-索引的创建与解释" class="headerlink" title="二.索引的创建与解释"></a>二.索引的创建与解释</h5><p>1.索引的创建</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// 测试索引的创建， Request PUT liuyou_index</span><br><span class="line">@Test</span><br><span class="line">public void testCreateIndex() throws IOException &#123;</span><br><span class="line">    CreateIndexRequest request = new CreateIndexRequest(&quot;fsy_index&quot;);</span><br><span class="line">    CreateIndexResponse response = restHighLevelClient.indices().create(request, RequestOptions.DEFAULT);</span><br><span class="line">    System.out.println(response.isAcknowledged());// 查看是否创建成功</span><br><span class="line">    System.out.println(response);// 查看返回对象</span><br><span class="line">    restHighLevelClient.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>2.索引的获取，并且判断是否存在</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 测试获取索引，并判断其是否存在</span><br><span class="line">@Test</span><br><span class="line">public void testIndexIsExists() throws IOException &#123;</span><br><span class="line">    GetIndexRequest request = new GetIndexRequest(&quot;index&quot;);</span><br><span class="line">    boolean exists = restHighLevelClient.indices().exists(request, RequestOptions.DEFAULT);</span><br><span class="line">    System.out.println(exists);// 索引是否存在</span><br><span class="line">    restHighLevelClient.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>3.索引的删除</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 测试索引删除</span><br><span class="line">@Test</span><br><span class="line">public void testDeleteIndex() throws IOException &#123;</span><br><span class="line">    DeleteIndexRequest request = new DeleteIndexRequest(&quot;fsy_index&quot;);</span><br><span class="line">    AcknowledgedResponse response = restHighLevelClient.indices().delete(request, RequestOptions.DEFAULT);</span><br><span class="line">    System.out.println(response.isAcknowledged());// 是否删除成功</span><br><span class="line">    restHighLevelClient.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="七-项目实战"><a href="#七-项目实战" class="headerlink" title="七.项目实战"></a>七.项目实战</h3><p>1.创建springboot项目<br>2.导入依赖</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">1.  `&lt;properties&gt;`</span><br><span class="line">2.  `&lt;java.version&gt;1.8&lt;/java.version&gt;`</span><br><span class="line">3.  `&lt;elasticsearch.version&gt;7.6.1&lt;/elasticsearch.version&gt;`</span><br><span class="line">4.  `&lt;/properties&gt;`</span><br><span class="line">1.  `&lt;!-- jsoup解析页面 --&gt;`</span><br><span class="line">2.  `&lt;!-- 解析网页 爬视频可 研究tiko --&gt;`</span><br><span class="line">3.  `&lt;dependency&gt;`</span><br><span class="line">4.  `&lt;groupId&gt;org.jsoup&lt;/groupId&gt;`</span><br><span class="line">5.  `&lt;artifactId&gt;jsoup&lt;/artifactId&gt;`</span><br><span class="line">6.  `&lt;version&gt;1.10.2&lt;/version&gt;`</span><br><span class="line">7.  `&lt;/dependency&gt;`</span><br><span class="line">8.  `&lt;!-- fastjson --&gt;`</span><br><span class="line">9.  `&lt;dependency&gt;`</span><br><span class="line">10.  `&lt;groupId&gt;com.alibaba&lt;/groupId&gt;`</span><br><span class="line">11.  `&lt;artifactId&gt;fastjson&lt;/artifactId&gt;`</span><br><span class="line">12.  `&lt;version&gt;1.2.70&lt;/version&gt;`</span><br><span class="line">13.  `&lt;/dependency&gt;`</span><br><span class="line">14.  `&lt;!-- ElasticSearch --&gt;`</span><br><span class="line">15.  `&lt;dependency&gt;`</span><br><span class="line">16.  `&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;`</span><br><span class="line">17.  `&lt;artifactId&gt;spring-boot-starter-data-elasticsearch&lt;/artifactId&gt;`</span><br><span class="line">18.  `&lt;/dependency&gt;`</span><br><span class="line">19.  `&lt;!-- thymeleaf --&gt;`</span><br><span class="line">20.  `&lt;dependency&gt;`</span><br><span class="line">21.  `&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;`</span><br><span class="line">22.  `&lt;artifactId&gt;spring-boot-starter-thymeleaf&lt;/artifactId&gt;`</span><br><span class="line">23.  `&lt;/dependency&gt;`</span><br><span class="line">24.  `&lt;!-- web --&gt;`</span><br><span class="line">25.  `&lt;dependency&gt;`</span><br><span class="line">26.  `&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;`</span><br><span class="line">27.  `&lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;`</span><br><span class="line">28.  `&lt;/dependency&gt;`</span><br><span class="line">29.  `&lt;!-- devtools热部署 --&gt;`</span><br><span class="line">30.  `&lt;dependency&gt;`</span><br><span class="line">31.  `&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;`</span><br><span class="line">32.  `&lt;artifactId&gt;spring-boot-devtools&lt;/artifactId&gt;`</span><br><span class="line">33.  `&lt;scope&gt;runtime&lt;/scope&gt;`</span><br><span class="line">34.  `&lt;optional&gt;true&lt;/optional&gt;`</span><br><span class="line">35.  `&lt;/dependency&gt;`</span><br><span class="line">36.  `&lt;!-- --&gt;`</span><br><span class="line">37.  `&lt;dependency&gt;`</span><br><span class="line">38.  `&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;`</span><br><span class="line">39.  `&lt;artifactId&gt;spring-boot-configuration-processor&lt;/artifactId&gt;`</span><br><span class="line">40.  `&lt;optional&gt;true&lt;/optional&gt;`</span><br><span class="line">41.  `&lt;/dependency&gt;`</span><br><span class="line">42.  `&lt;!-- lombok 需要安装插件 --&gt;`</span><br><span class="line">43.  `&lt;dependency&gt;`</span><br><span class="line">44.  `&lt;groupId&gt;org.projectlombok&lt;/groupId&gt;`</span><br><span class="line">45.  `&lt;artifactId&gt;lombok&lt;/artifactId&gt;`</span><br><span class="line">46.  `&lt;optional&gt;true&lt;/optional&gt;`</span><br><span class="line">47.  `&lt;/dependency&gt;`</span><br><span class="line">48.  `&lt;!-- test --&gt;`</span><br><span class="line">49.  `&lt;dependency&gt;`</span><br><span class="line">50.  `&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;`</span><br><span class="line">51.  `&lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;`</span><br><span class="line">52.  `&lt;scope&gt;test&lt;/scope&gt;`</span><br><span class="line">53.  `&lt;/dependency&gt;`</span><br></pre></td></tr></table></figure>
+<p>3.配置配置文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 更改端口，防止冲突</span><br><span class="line">server.port=9999</span><br><span class="line"># 关闭thymeleaf缓存</span><br><span class="line">spring.thymeleaf.cache=false</span><br></pre></td></tr></table></figure>
+<p>4.编写代码以及测试<br>![[]<a target="_blank" rel="noopener" href="https://gitee.com/wochaojihaode/springboot-jd">springboot-jd: 仿京东爬虫 (gitee.com)</a>]</p>
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Snippet</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    
+    <a href="/2022/08/19/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Docker%E7%AC%94%E8%AE%B0/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="next-post btn btn-default" title=''>
+        <span class="hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            </span><i class="fa fa-angle-right fa-fw"></i>
+    </a>
+    
+</div>
+
+<div id="comments">
+    
+    
+<div class="utteranc">
+  
+  <script
+    src='https://utteranc.es/client.js'
+    repo='shenliyang/snippet-comment'
+    issue-term='pathname'
+    issue-number=''
+    theme='github-light'
+    label=''
+    crossorigin='anonymous'
+    async
+  ></script>
+</div>
+
+
+
+</div>
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            文章目录
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#ElasticSearch%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0"><span class="toc-text">ElasticSearch学习笔记</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80-ElasticSearch%E7%AE%80%E8%BF%B0"><span class="toc-text">一.ElasticSearch简述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C-%E5%AE%89%E8%A3%85"><span class="toc-text">二.安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89-%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="toc-text">三.核心概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B-%E5%88%86%E8%AF%8D%E5%99%A8"><span class="toc-text">四.分词器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%94-Rest%E7%9A%84%E6%93%8D%E4%BD%9C"><span class="toc-text">五.Rest的操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%AD-SpringBoot%E7%9A%84%E9%9B%86%E6%88%90"><span class="toc-text">六.SpringBoot的集成</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%80-springboot%E9%A1%B9%E7%9B%AE%E9%9B%86%E6%88%90"><span class="toc-text">一.springboot项目集成</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BA%8C-%E7%B4%A2%E5%BC%95%E7%9A%84%E5%88%9B%E5%BB%BA%E4%B8%8E%E8%A7%A3%E9%87%8A"><span class="toc-text">二.索引的创建与解释</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%83-%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98"><span class="toc-text">七.项目实战</span></a></li></ol></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="fa fa-chevron-up"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2017
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="/js/app.js?rev=@@hash.js"></script>
+
+</body>
+</html>

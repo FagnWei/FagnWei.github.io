@@ -22,11 +22,11 @@
 <meta name="keywords" content="" />
 
 
-<meta name="description" content="title: 8月16号技术总结
-docker 安装redis1、下载镜像文件
-docker pull redis
-2、创建实例并启动
-mkdir -p &#x2F;mydata&#x2F;re..." />
+<meta name="description" content="docker的学习笔记一.docker 命令1.运行并且进入容器： 
+docker run -it centos /bin/bash
+2.退出出容器：exit
+3.列出运行过的容器：
+    d..." />
 
 
 <meta name="robots" content="all" />
@@ -167,7 +167,7 @@ mkdir -p &#x2F;mydata&#x2F;re..." />
     <span class="fa-wrap">
         <i class="fa fa-clock-o"></i>
         <span class="date-meta">
-            2022/08/16</span>
+            2022/08/19</span>
     </span>
     
     
@@ -177,17 +177,117 @@ mkdir -p &#x2F;mydata&#x2F;re..." />
     </div>
     
     <div class="post-body post-content">
-        <p>title: 8月16号技术总结</p>
-<h4 id="docker-安装redis"><a href="#docker-安装redis" class="headerlink" title="docker 安装redis"></a>docker 安装redis</h4><p>1、下载镜像文件</p>
-<p>docker pull redis</p>
-<p>2、创建实例并启动</p>
-<p>mkdir -p &#x2F;mydata&#x2F;redis&#x2F;conf</p>
-<p>touch &#x2F;mydata&#x2F;redis&#x2F;conf&#x2F;redis.conf</p>
-<p>docker run -p 6379:6379 –name redis -v &#x2F;mydata&#x2F;redis&#x2F;data:&#x2F;data <br>-v &#x2F;mydata&#x2F;redis&#x2F;conf&#x2F;redis.conf:&#x2F;etc&#x2F;redis&#x2F;redis.conf <br>-d redis redis-server &#x2F;etc&#x2F;redis&#x2F;redis.conf</p>
-<p>redis 自描述文件：</p>
-<p><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/antirez/redis/4.0/redis.conf">https://raw.githubusercontent.com/antirez/redis/4.0/redis.conf</a></p>
-<h4 id="docker-安装mq"><a href="#docker-安装mq" class="headerlink" title="docker 安装mq"></a>docker 安装mq</h4><p>docker run -d –restart&#x3D;always –name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3.10-management</p>
-<p>#第一步：添加 admin 用户并设置密码 rabbitmqctl add_user admin 123456<br>#第二步：添加 admin 用户为administrator角色 rabbitmqctl set_user_tags admin administrator<br>#第三步：设置 admin 用户的权限，指定允许访问的vhost以及write&#x2F;read rabbitmqctl set_permissions -p “&#x2F;“ admin “.<em>“ “.</em>“ “.*”<br>#第四步：查看vhost（&#x2F;）允许哪些用户访问 rabbitmqctl list_permissions -p &#x2F;<br>#第五步：查看用户列表 rabbitmqctl list_users<br>#第六步：重启RabbitMQ,然后用设置账户和密码登录。</p>
+        <h2 id="docker的学习笔记"><a href="#docker的学习笔记" class="headerlink" title="docker的学习笔记"></a>docker的学习笔记</h2><h3 id="一-docker-命令"><a href="#一-docker-命令" class="headerlink" title="一.docker 命令"></a>一.docker 命令</h3><pre><code>1.运行并且进入容器： 
+docker run -it centos /bin/bash
+2.退出出容器：exit
+3.列出运行过的容器：
+    docker ps
+     -a    列出所有容器的运行记录 
+     -n=?  显示最近创建的n个容器
+      -q    只显示容器的编号
+4.删除容器的：
+        docker start 容器id   启动容器
+        docker restart 容器id  重启容器
+        docker stop 容器id     停止  
+        docker kill 容器id     强制停止 
+</code></pre>
+<h3 id="二-docker-日志命令"><a href="#二-docker-日志命令" class="headerlink" title="二.docker 日志命令"></a>二.docker 日志命令</h3><pre><code> 1.日志查看
+     docker logs  --help
+ 2.查看容器中进程信息
+     docker top 进程名字
+ 3.进入当前正在运行的容器
+     docker exec -it 进程名字
+     docker attach -it 进程名字
+</code></pre>
+<h3 id="三-拷贝操作"><a href="#三-拷贝操作" class="headerlink" title="三.拷贝操作"></a>三.拷贝操作</h3><pre><code>1.拷贝容器文件到主机
+docker cp 容器id：容器内路径  目的主机路径
+2.拷贝主机文件到容器
+docker cp 目的主机路径    容器id：容器内路径
+</code></pre>
+<h3 id="四-部署niginx、tomcat、elasticsearch、mysql等"><a href="#四-部署niginx、tomcat、elasticsearch、mysql等" class="headerlink" title="四.部署niginx、tomcat、elasticsearch、mysql等"></a>四.部署niginx、tomcat、elasticsearch、mysql等</h3><pre><code>1.myslq部署
+    拉去并且运行容器：
+    docker run -d --name mysql-5.7 -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 mysql:5.7
+    
+2.ElasticSearch部署
+docker run -d --name elasticsearch01 -p 9200:9200 -p 9300:9300 -e &quot;discovery.type=single-node&quot; -e ES_JAVA_OPTS=&quot;-Xms128m -Xmx512m&quot; elasticsearch:7.6.2
+
+3.Nginx的部署
+    docker pull nginx
+    
+4.tomcat
+    docker pull tomcat
+
+     
+</code></pre>
+<h3 id="五-可视化界面的安装（不重要）"><a href="#五-可视化界面的安装（不重要）" class="headerlink" title="五.可视化界面的安装（不重要）"></a>五.可视化界面的安装（不重要）</h3><pre><code>1.protainer
+</code></pre>
+<h3 id="六-常用的命令"><a href="#六-常用的命令" class="headerlink" title="六.常用的命令"></a>六.常用的命令</h3><pre><code>1. -d: 后台运行
+2. -p: 端口映射
+3. -e：环境配置
+4. --name：名字 
+</code></pre>
+<h3 id="七-具名挂载、匿名挂载-建议使用具名挂载"><a href="#七-具名挂载、匿名挂载-建议使用具名挂载" class="headerlink" title="七.具名挂载、匿名挂载( 建议使用具名挂载)"></a>七.具名挂载、匿名挂载( <strong>建议使用具名挂载</strong>)</h3><pre><code>1.匿名挂载
+    docker run -d -v 容器内目录 镜像名/id # 匿名挂载
+2.具名挂载
+    docker run -d -v 卷名：容器内目录 镜像名/id # 具名挂载
+3.查看卷的情况
+    docker volume ls
+4.查看该卷的具体信息
+    docker volume inspect 卷的名字
+5.怎么判断是匿名还是具名挂载
+    -v 容器内路径 # 匿名挂载
+    -v 卷名：容器内路径 # 具名挂载
+    
+</code></pre>
+<h3 id="八-dockerFile"><a href="#八-dockerFile" class="headerlink" title="八.dockerFile"></a>八.dockerFile</h3><pre><code>Dockerfile是用来构建docker镜像的文件
+1.
+    docker build -f 文件路径 -t 镜像名 .（不要忘记点）  # 文件名为Dockerfile时可 
+    docker run # 运行镜像 
+    docker push # 发布镜像
+
+2.构建步骤
+    1.编写一个dockerfile文件
+    2.docker build 构建一个镜像
+    3.docker run 运行镜像
+    4.docker push 发布镜像
+3.命令
+
+![[1.png]]
+
+
+4.创建一个属于自己的容器
+        1.mkdir dockerfile #创建一个文件夹
+        2.vim mydockerfile #创建一个mydockerfile 进行进行文件编辑
+        3.在文件编辑模式当中进行配置信息
+
+        ![[2.png]]
+
+            4.docker build -f mydockerfile -t mycentos . #进行build
+            5.docker run -it mycentos
+
+        
+                
+        
+        
+
+        
+
+
+
+
+
+        
+        
+</code></pre>
+<h3 id="九-发布镜像到dockerhub"><a href="#九-发布镜像到dockerhub" class="headerlink" title="九.发布镜像到dockerhub"></a>九.发布镜像到dockerhub</h3><pre><code>1.登录[Docker Hub](https://hub.docker.com/)
+2.在虚拟机上docker login -u 账户名字
+3.docker push 镜像
+</code></pre>
+<h3 id="十-发布到阿里云上"><a href="#十-发布到阿里云上" class="headerlink" title="十.发布到阿里云上"></a>十.发布到阿里云上</h3><pre><code>1.登录到阿里云
+2.找到容器镜像服务
+3.创建命名空间
+4.创建容器镜像
+</code></pre>
 
     </div>
     
@@ -206,14 +306,14 @@ mkdir -p &#x2F;mydata&#x2F;re..." />
 </article>
 <div class="article-nav prev-next-wrap clearfix">
     
-    <a href="/2022/08/19/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/RabbitMq%E7%AC%94%E8%AE%B0/" class="pre-post btn btn-default" title=''>
+    <a href="/2022/08/19/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/ElasticSearch%E7%AC%94%E8%AE%B0/ElasticSearch%E7%AC%94%E8%AE%B0/" class="pre-post btn btn-default" title=''>
         <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
         <span class="hidden-xs">
             </span>
     </a>
     
     
-    <a href="/2022/08/16/8%E6%9C%8812%E5%8F%B7%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/" class="next-post btn btn-default" title=''>
+    <a href="/2022/08/19/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%9D%A2%E8%AF%95%E7%AC%94%E8%AE%B0/" class="next-post btn btn-default" title=''>
         <span class="hidden-lg">下一篇</span>
         <span class="hidden-xs">
             </span><i class="fa fa-angle-right fa-fw"></i>
@@ -250,7 +350,7 @@ mkdir -p &#x2F;mydata&#x2F;re..." />
             文章目录
         </h3>
         
-        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#docker-%E5%AE%89%E8%A3%85redis"><span class="toc-text">docker 安装redis</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#docker-%E5%AE%89%E8%A3%85mq"><span class="toc-text">docker 安装mq</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#docker%E7%9A%84%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0"><span class="toc-text">docker的学习笔记</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80-docker-%E5%91%BD%E4%BB%A4"><span class="toc-text">一.docker 命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C-docker-%E6%97%A5%E5%BF%97%E5%91%BD%E4%BB%A4"><span class="toc-text">二.docker 日志命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89-%E6%8B%B7%E8%B4%9D%E6%93%8D%E4%BD%9C"><span class="toc-text">三.拷贝操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B-%E9%83%A8%E7%BD%B2niginx%E3%80%81tomcat%E3%80%81elasticsearch%E3%80%81mysql%E7%AD%89"><span class="toc-text">四.部署niginx、tomcat、elasticsearch、mysql等</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%94-%E5%8F%AF%E8%A7%86%E5%8C%96%E7%95%8C%E9%9D%A2%E7%9A%84%E5%AE%89%E8%A3%85%EF%BC%88%E4%B8%8D%E9%87%8D%E8%A6%81%EF%BC%89"><span class="toc-text">五.可视化界面的安装（不重要）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%AD-%E5%B8%B8%E7%94%A8%E7%9A%84%E5%91%BD%E4%BB%A4"><span class="toc-text">六.常用的命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%83-%E5%85%B7%E5%90%8D%E6%8C%82%E8%BD%BD%E3%80%81%E5%8C%BF%E5%90%8D%E6%8C%82%E8%BD%BD-%E5%BB%BA%E8%AE%AE%E4%BD%BF%E7%94%A8%E5%85%B7%E5%90%8D%E6%8C%82%E8%BD%BD"><span class="toc-text">七.具名挂载、匿名挂载( 建议使用具名挂载)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%AB-dockerFile"><span class="toc-text">八.dockerFile</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B9%9D-%E5%8F%91%E5%B8%83%E9%95%9C%E5%83%8F%E5%88%B0dockerhub"><span class="toc-text">九.发布镜像到dockerhub</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%81-%E5%8F%91%E5%B8%83%E5%88%B0%E9%98%BF%E9%87%8C%E4%BA%91%E4%B8%8A"><span class="toc-text">十.发布到阿里云上</span></a></li></ol></li></ol>
         
     </div>
 </aside>

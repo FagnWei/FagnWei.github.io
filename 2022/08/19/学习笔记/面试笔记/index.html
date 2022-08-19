@@ -22,11 +22,18 @@
 <meta name="keywords" content="" />
 
 
-<meta name="description" content="title: 8月16号技术总结
-docker 安装redis1、下载镜像文件
-docker pull redis
-2、创建实例并启动
-mkdir -p &#x2F;mydata&#x2F;re..." />
+<meta name="description" content="docker优点
+
+小 
+
+隔离性
+
+方便
+
+版本控制
+
+
+项目描述：同创商城是一个在线销售平台。此项目分为后台项目管理部分和前台使用部分。后台管理部分，核心模块：商品管理模块、库存管理模块、统..." />
 
 
 <meta name="robots" content="all" />
@@ -167,7 +174,7 @@ mkdir -p &#x2F;mydata&#x2F;re..." />
     <span class="fa-wrap">
         <i class="fa fa-clock-o"></i>
         <span class="date-meta">
-            2022/08/16</span>
+            2022/08/19</span>
     </span>
     
     
@@ -177,17 +184,23 @@ mkdir -p &#x2F;mydata&#x2F;re..." />
     </div>
     
     <div class="post-body post-content">
-        <p>title: 8月16号技术总结</p>
-<h4 id="docker-安装redis"><a href="#docker-安装redis" class="headerlink" title="docker 安装redis"></a>docker 安装redis</h4><p>1、下载镜像文件</p>
-<p>docker pull redis</p>
-<p>2、创建实例并启动</p>
-<p>mkdir -p &#x2F;mydata&#x2F;redis&#x2F;conf</p>
-<p>touch &#x2F;mydata&#x2F;redis&#x2F;conf&#x2F;redis.conf</p>
-<p>docker run -p 6379:6379 –name redis -v &#x2F;mydata&#x2F;redis&#x2F;data:&#x2F;data <br>-v &#x2F;mydata&#x2F;redis&#x2F;conf&#x2F;redis.conf:&#x2F;etc&#x2F;redis&#x2F;redis.conf <br>-d redis redis-server &#x2F;etc&#x2F;redis&#x2F;redis.conf</p>
-<p>redis 自描述文件：</p>
-<p><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/antirez/redis/4.0/redis.conf">https://raw.githubusercontent.com/antirez/redis/4.0/redis.conf</a></p>
-<h4 id="docker-安装mq"><a href="#docker-安装mq" class="headerlink" title="docker 安装mq"></a>docker 安装mq</h4><p>docker run -d –restart&#x3D;always –name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3.10-management</p>
-<p>#第一步：添加 admin 用户并设置密码 rabbitmqctl add_user admin 123456<br>#第二步：添加 admin 用户为administrator角色 rabbitmqctl set_user_tags admin administrator<br>#第三步：设置 admin 用户的权限，指定允许访问的vhost以及write&#x2F;read rabbitmqctl set_permissions -p “&#x2F;“ admin “.<em>“ “.</em>“ “.*”<br>#第四步：查看vhost（&#x2F;）允许哪些用户访问 rabbitmqctl list_permissions -p &#x2F;<br>#第五步：查看用户列表 rabbitmqctl list_users<br>#第六步：重启RabbitMQ,然后用设置账户和密码登录。</p>
+        <p><strong>docker优点</strong></p>
+<ol>
+<li><p>小 </p>
+</li>
+<li><p>隔离性</p>
+</li>
+<li><p>方便</p>
+</li>
+<li><p>版本控制</p>
+</li>
+<li><ol>
+<li>项目描述：同创商城是一个在线销售平台。此项目分为后台项目管理部分和前台使用部分。后台管理部分，核心模块：商品管理模块、库存管理模块、统计报表模块、系统基础权限等模块。用户前台使用部分，所包含的模块用户登录模块、购物车模块、商品详情模块、订单模块、支付模块、商品检索模块。责任描述：1.负责部分模块的数据表的设计。2.负责商品详情模块的设计与开发。3.负责单点登录模块的开发。4.负责购物车模块的开发。技术点描述：1.此项目使用SpringCloud分布式架构，使用SpringBoot开发微服务，使用SpringCloudALiBaBa的Nocas作服务注册中心和配置中心。2.商品详情模块使用Redis做缓存，使用分布式锁+app，防止缓存穿透和击穿，并简化代码开发。</li>
+</ol>
+</li>
+<li><p><img src="https://cdndoc.pcs.baidu.com/rest/2.0/docview/doc?datatype=pic&dp_logid=8807913850054366714&expires=3h&fid=228634496-250528-74533733341952&ipmd5=180a47cd697d7c9a7fe6ceb90e888832&method=data&nf=1&object=04d15665asaa98b7292e473c949d0e1d&rt=sh&sign=FOTRE-DCb740ccc5511e5e8fedcff06b081203-kCTk90z4j6lp78%252BOqJ4iWX4hGKw%253D&timestamp=1660893536&uar=bf3c171e593b4285c55050e9f3e35b23&env=web&product=share&pagenum=2">3.单点登录使用Gateway网关同一鉴权，用Uuid生成Token存入Redis。4.在购物车模块中采用异步编排技术进行远程调用的处理，提高系统的效率<br>![[Pasted image 20220819111125.png]]</p>
+</li>
+</ol>
 
     </div>
     
@@ -206,14 +219,14 @@ mkdir -p &#x2F;mydata&#x2F;re..." />
 </article>
 <div class="article-nav prev-next-wrap clearfix">
     
-    <a href="/2022/08/19/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/RabbitMq%E7%AC%94%E8%AE%B0/" class="pre-post btn btn-default" title=''>
+    <a href="/2022/08/19/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Docker%E7%AC%94%E8%AE%B0/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="pre-post btn btn-default" title=''>
         <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
         <span class="hidden-xs">
             </span>
     </a>
     
     
-    <a href="/2022/08/16/8%E6%9C%8812%E5%8F%B7%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/" class="next-post btn btn-default" title=''>
+    <a href="/2022/08/19/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/RabbitMq%E7%AC%94%E8%AE%B0/" class="next-post btn btn-default" title=''>
         <span class="hidden-lg">下一篇</span>
         <span class="hidden-xs">
             </span><i class="fa fa-angle-right fa-fw"></i>
@@ -250,7 +263,7 @@ mkdir -p &#x2F;mydata&#x2F;re..." />
             文章目录
         </h3>
         
-        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#docker-%E5%AE%89%E8%A3%85redis"><span class="toc-text">docker 安装redis</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#docker-%E5%AE%89%E8%A3%85mq"><span class="toc-text">docker 安装mq</span></a></li></ol>
+        <p>暂无目录</p>
         
     </div>
 </aside>
